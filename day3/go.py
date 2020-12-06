@@ -9,20 +9,29 @@ def tree(m, x, y):
     return m[y][x]
 
 
+def count_slope(slope_x, slope_y, map):
+    width = len(map[0])
+    trees = 0
+    try:
+        x = 0
+        y = 0
+        while True:
+            if tree(map, x % width, y):
+                trees += 1
+            x += slope_x
+            y += slope_y
+    except IndexError:
+        pass
+
+    return trees
+
+
 lines = sys.stdin.readlines()
 map = make_map(lines)
-width = len(map[0])
 
-trees = 0
-try:
-    x = 0
-    y = 0
-    while True:
-        if tree(map, x % width, y):
-            trees += 1
-        x += 3
-        y += 1
-except IndexError:
-    pass
+print(count_slope(3, 1, map))
 
-print(trees)
+total = 1
+for (x, y) in [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]:
+    total *= count_slope(x, y, map)
+print(total)
