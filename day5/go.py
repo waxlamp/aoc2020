@@ -16,6 +16,15 @@ def convert(line):
     return id
 
 
+def find_id(ids):
+    i = 0
+    while True:
+        if i not in ids and (i - 1) in ids and (i + 1) in ids:
+            return i
+        i += 1
+
+
 lines = sys.stdin.readlines()
 ids = [convert(x) for x in lines]
 print(max(ids))
+print(find_id(ids))
